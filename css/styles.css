@@ -731,6 +731,80 @@ body.dark .tech-stack{
   padding:32px 0;
 }
 
+/* GITHUB API */
+.github-panel{
+  margin-top:20px;
+}
+
+.api-status{
+  min-height:24px;
+  margin-bottom:20px;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.api-status.is-error{
+  color:#e53e3e;
+}
+
+.github-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:20px;
+}
+
+.repo-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  text-align:left;
+  box-shadow:var(--shadow);
+}
+
+.repo-card h3{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.repo-card p{
+  color:var(--muted);
+  font-size:15px;
+  margin-bottom:16px;
+}
+
+.repo-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.repo-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(10,90,219,0.08);
+  color:var(--accent);
+  font-size:12px;
+  font-weight:600;
+}
+
+body.dark .repo-badge{
+  background:rgba(47,123,255,0.15);
+}
+
+.repo-link{
+  color:var(--accent);
+  font-weight:600;
+  text-decoration:none;
+}
+
+.repo-link:hover{
+  text-decoration:underline;
+}
+
 /* CONTACT */
 .contact-links{
   display:flex;
@@ -873,6 +947,10 @@ body.dark .tech-stack{
 
 @media(max-width:900px){
   .projects-grid{
+    grid-template-columns:1fr;
+  }
+
+  .github-grid{
     grid-template-columns:1fr;
   }
 

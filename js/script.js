@@ -181,3 +181,72 @@ contactForm.addEventListener("submit", (e) => {
     successMsg.style.display = "none";
   }, 5000);
 });
+
+// ============================================
+// GITHUB API INTEGRATION
+// ============================================
+
+const githubReposContainer = document.getElementById("github-repos");
+const githubStatus = document.getElementById("github-status");
+const githubUsername = "abdulmajeed-alothaymin24";
+const githubApiUrl = `https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=6&type=owner`;
+
+function formatRepoDate(dateString) {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  });
+}
+
+function renderGithubRepos(repositories) {
+  githubReposContainer.innerHTML = repositories.map((repo) => `
+    <article class="repo-card">
+      <h3>${repo.name}</h3>
+      <p>${repo.description || "No description provided for this repository yet."}</p>
+      <div class="repo-meta">
+        <span class="repo-badge">${repo.language || "Mixed stack"}</span>
+        <span class="repo-badge">Updated ${formatRepoDate(repo.updated_at)}</span>
+        <span class="repo-badge">${repo.stargazers_count} stars</span>
+      </div>
+      <a class="repo-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository →</a>
+    </article>
+  `).join("");
+}
+
+async function loadGithubRepos() {
+  if (!githubReposContainer || !githubStatus) {
+    return;
+  }
+
+  try {
+    githubStatus.textContent = "Loading repositories...";
+    githubStatus.classList.remove("is-error");
+
+    const response = await fetch(githubApiUrl);
+
+    if (!response.ok) {
+      throw new Error("GitHub request failed");
+    }
+
+    const repositories = await response.json();
+    const filteredRepos = repositories
+      .filter((repo) => !repo.fork)
+      .slice(0, 4);
+
+    if (filteredRepos.length === 0) {
+      githubStatus.textContent = "No public repositories are available to show right now.";
+      githubReposContainer.innerHTML = "";
+      return;
+    }
+
+    renderGithubRepos(filteredRepos);
+    githubStatus.textContent = "Live repository data loaded successfully.";
+  } catch (error) {
+    githubStatus.textContent = "GitHub data could not be loaded right now. Please try again later.";
+    githubStatus.classList.add("is-error");
+    githubReposContainer.innerHTML = "";
+  }
+}
+
+loadGithubRepos();
