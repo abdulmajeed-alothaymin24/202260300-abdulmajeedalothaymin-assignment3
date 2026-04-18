@@ -168,6 +168,7 @@
 
       <ol class="section-steps">
         <li>Click a category button below to filter projects by type.</li>
+        <li>Use the dropdown menus to sort projects or narrow them by difficulty level.</li>
         <li>Browse the cards — each one lists the tools and deliverables involved.</li>
         <li>Click <strong>View on GitHub →</strong> on any card to open its repository.</li>
       </ol>
@@ -179,9 +180,33 @@
         <button class="filter-btn" data-filter="systems">Systems</button>
       </div>
 
+      <div class="project-controls">
+        <label class="project-control" for="project-sort">
+          <span>Sort projects</span>
+          <select id="project-sort">
+            <option value="featured">Featured order</option>
+            <option value="title-asc">Title: A to Z</option>
+            <option value="title-desc">Title: Z to A</option>
+            <option value="date-desc">Newest first</option>
+            <option value="date-asc">Oldest first</option>
+          </select>
+        </label>
+        <label class="project-control" for="project-level">
+          <span>Experience level</span>
+          <select id="project-level">
+            <option value="all">All visitors</option>
+            <option value="beginner">Beginner-friendly</option>
+            <option value="advanced">Advanced focus</option>
+          </select>
+        </label>
+      </div>
+      <p class="projects-summary" id="projects-summary" aria-live="polite">
+        Showing all featured projects.
+      </p>
+
       <div class="projects-grid">
         <!-- Project 1 -->
-        <div class="project-card" data-category="design">
+        <div class="project-card" data-category="design" data-level="beginner" data-date="2025-11-01" data-featured="1">
           <img
             class="project-thumb"
             alt="Project placeholder image"
@@ -202,7 +227,7 @@
           </div>
         </div>
         <!-- Project 2 -->
-        <div class="project-card" data-category="design">
+        <div class="project-card" data-category="design" data-level="advanced" data-date="2026-02-15" data-featured="2">
           <img
             class="project-thumb"
             alt="Project placeholder image"
@@ -223,7 +248,7 @@
           </div>
         </div>
         <!-- Project 3 -->
-        <div class="project-card" data-category="database">
+        <div class="project-card" data-category="database" data-level="advanced" data-date="2026-03-01" data-featured="3">
           <img
             class="project-thumb"
             alt="Project placeholder image"
@@ -244,7 +269,7 @@
           </div>
         </div>
         <!-- Project 4 -->
-        <div class="project-card" data-category="systems">
+        <div class="project-card" data-category="systems" data-level="advanced" data-date="2024-10-01" data-featured="4">
           <img
             class="project-thumb"
             alt="Project placeholder image"

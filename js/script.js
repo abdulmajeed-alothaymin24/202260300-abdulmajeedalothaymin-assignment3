@@ -95,38 +95,113 @@ themeToggleBtn.addEventListener("click", () => {
 const filterButtons = document.querySelectorAll(".filter-btn");
 const projectCards = document.querySelectorAll(".project-card");
 const noProjectsMsg = document.getElementById("no-projects");
+const projectSort = document.getElementById("project-sort");
+const projectLevel = document.getElementById("project-level");
+const projectsGrid = document.querySelector(".projects-grid");
+const projectsSummary = document.getElementById("projects-summary");
+let activeProjectFilter = "all";
+
+function sortProjectCards(cards, sortValue) {
+  const sortedCards = [...cards];
+
+  sortedCards.sort((firstCard, secondCard) => {
+    const firstTitle = firstCard.querySelector("h3").textContent.trim();
+    const secondTitle = secondCard.querySelector("h3").textContent.trim();
+    const firstDate = new Date(firstCard.dataset.date);
+    const secondDate = new Date(secondCard.dataset.date);
+    const firstFeatured = Number(firstCard.dataset.featured);
+    const secondFeatured = Number(secondCard.dataset.featured);
+
+    if (sortValue === "title-asc") {
+      return firstTitle.localeCompare(secondTitle);
+    }
+
+    if (sortValue === "title-desc") {
+      return secondTitle.localeCompare(firstTitle);
+    }
+
+    if (sortValue === "date-desc") {
+      return secondDate - firstDate;
+    }
+
+    if (sortValue === "date-asc") {
+      return firstDate - secondDate;
+    }
+
+    return firstFeatured - secondFeatured;
+  });
+
+  return sortedCards;
+}
+
+function updateProjectsSummary(visibleCount, filterValue, levelValue, sortValue) {
+  const filterLabel = filterValue === "all" ? "projects from all categories" : `${filterValue} projects`;
+  const levelLabel = levelValue === "all" ? "for all visitors" : `for ${levelValue} visitors`;
+  const sortLabels = {
+    featured: "featured order",
+    "title-asc": "title A to Z",
+    "title-desc": "title Z to A",
+    "date-desc": "newest first",
+    "date-asc": "oldest first"
+  };
+
+  if (projectsSummary) {
+    projectsSummary.textContent = `Showing ${visibleCount} ${filterLabel}, filtered ${levelLabel}, sorted by ${sortLabels[sortValue]}.`;
+  }
+}
+
+function applyProjectControls() {
+  const sortValue = projectSort ? projectSort.value : "featured";
+  const levelValue = projectLevel ? projectLevel.value : "all";
+  const sortedCards = sortProjectCards(projectCards, sortValue);
+  let visibleCount = 0;
+
+  sortedCards.forEach((card) => {
+    const matchesCategory =
+      activeProjectFilter === "all" || card.dataset.category === activeProjectFilter;
+    const matchesLevel =
+      levelValue === "all" || card.dataset.level === levelValue;
+
+    if (matchesCategory && matchesLevel) {
+      card.classList.remove("hidden");
+      card.classList.remove("card-pop");
+      void card.offsetWidth;
+      card.classList.add("card-pop");
+      visibleCount++;
+    } else {
+      card.classList.add("hidden");
+    }
+
+    if (projectsGrid) {
+      projectsGrid.appendChild(card);
+    }
+  });
+
+  if (noProjectsMsg) {
+    noProjectsMsg.style.display = visibleCount === 0 ? "block" : "none";
+  }
+
+  updateProjectsSummary(visibleCount, activeProjectFilter, levelValue, sortValue);
+}
 
 filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    // Update active button
-    filterButtons.forEach((b) => b.classList.remove("active"));
+    filterButtons.forEach((button) => button.classList.remove("active"));
     btn.classList.add("active");
-
-    const filter = btn.getAttribute("data-filter");
-
-    // Show or hide each card based on category
-    let visibleCount = 0;
-    projectCards.forEach((card) => {
-      if (filter === "all" || card.getAttribute("data-category") === filter) {
-        card.classList.remove("hidden");
-        // Retrigger pop animation
-        card.classList.remove("card-pop");
-        void card.offsetWidth; // force reflow so animation replays
-        card.classList.add("card-pop");
-        visibleCount++;
-      } else {
-        card.classList.add("hidden");
-      }
-    });
-
-    // Show empty state if no cards are visible
-    if (visibleCount === 0) {
-      noProjectsMsg.style.display = "block";
-    } else {
-      noProjectsMsg.style.display = "none";
-    }
+    activeProjectFilter = btn.getAttribute("data-filter");
+    applyProjectControls();
   });
 });
+
+if (projectSort) {
+  projectSort.addEventListener("change", applyProjectControls);
+}
+
+if (projectLevel) {
+  projectLevel.addEventListener("change", applyProjectControls);
+}
+
+applyProjectControls();
 
 // ============================================
 // CONTACT FORM VALIDATION

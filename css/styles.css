@@ -592,6 +592,49 @@ body.dark .skill-pill--learning{
   margin:24px 0 8px;
 }
 
+.project-controls{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin:16px 0 14px;
+}
+
+.project-control{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  text-align:left;
+  min-width:220px;
+}
+
+.project-control span{
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.project-control select{
+  padding:11px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  font-size:14px;
+}
+
+.project-control select:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+
+.projects-summary{
+  margin:0 auto 12px;
+  color:var(--muted);
+  font-size:14px;
+}
+
 .filter-btn{
   padding:8px 18px;
   border-radius:999px;
@@ -988,5 +1031,9 @@ body.dark .repo-badge{
   .hero-cta{
     flex-direction:column;
     align-items:center;
+  }
+
+  .project-control{
+    width:100%;
   }
 }
