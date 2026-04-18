@@ -2,153 +2,234 @@
 
 ## 1. Project Overview
 
-This project is a responsive personal portfolio web application built using HTML, CSS, and JavaScript.
-It was started in Assignment 1 and extended in Assignment 2 with interactive features, form validation, and animations.
+This project is a responsive personal portfolio website built with HTML, CSS, and JavaScript.
+It was developed across three assignments:
 
-The application focuses on:
-- Clean structure
-- Responsive layout
-- Theme customization
-- Dynamic interactivity
-- Organized file architecture
+- Assignment 1: static portfolio structure and styling
+- Assignment 2: interactive UI features such as theme persistence, project filtering, and form validation
+- Assignment 3: external API integration, stronger application logic, additional state management, and performance improvements
 
----
+The final application focuses on:
+
+- responsive presentation
+- maintainable file organization
+- progressive enhancement with JavaScript
+- user-friendly interaction patterns
+- lightweight implementation without frameworks
 
 ## 2. Project Structure
 
-assignment-1/
-├── index.html  
-├── css/styles.css  
-├── js/script.js  
-├── assets/images/  
-├── docs/  
+```text
+202260300-abdulmajeedalothaymin-assignment3/
+|-- README.md
+|-- index.html
+|-- css/
+|   |-- styles.css
+|-- js/
+|   |-- script.js
+|-- assets/
+|   |-- images/
+|-- docs/
+|   |-- ai-usage-report.md
+|   |-- technical-documentation.md
+|-- .gitignore
+```
 
-The structure separates concerns clearly:
-- HTML → content & structure
-- CSS → styling & layout
-- JavaScript → interactivity
-- Docs → documentation & AI usage explanation
+Separation of concerns:
 
----
+- `index.html` contains semantic structure and content
+- `css/styles.css` contains layout, component styling, theming, and responsive rules
+- `js/script.js` contains interactivity, state management, API access, and validation logic
+- `docs/` contains supporting documentation
 
 ## 3. HTML Architecture
 
-The HTML file is divided into semantic sections:
+The page is organized into semantic sections:
 
-- Header (Navigation Bar)
-- Hero Section
-- About Section
-- Skills Section
-- Projects Section
-- Contact Section
+- Header / navbar
+- Hero
+- About
+- Skills
+- Projects
+- GitHub repositories
+- Contact
 - Footer
 
-Each section uses a `.container` class to maintain consistent width and alignment across the layout.
+Important Assignment 3 additions:
 
-The project cards follow a reusable structure for consistency and readability.
+- a dedicated GitHub repositories section for live API data
+- project sorting and experience-level controls
+- visitor personalization input in the hero section
+- session activity panel with time-on-site feedback
+- expanded helper text and feedback elements in the contact form
 
----
+The project cards use reusable `data-*` attributes to support filtering, sorting, and rule-based rendering:
 
-## 4. CSS Design & Architecture
+- `data-category`
+- `data-level`
+- `data-date`
+- `data-featured`
 
-The CSS file is organized into logical sections:
+## 4. CSS Design and Architecture
 
-1. Theme Tokens  
-   CSS variables are used to define colors and reusable design values.
-   This allows easy switching between light and dark mode.
+The stylesheet is organized into major sections:
 
-2. Base Styles  
-   Global resets and typography settings ensure consistent formatting.
+1. Theme tokens
+2. Base styles
+3. Layout primitives
+4. Component styling
+5. Scroll reveal behavior
+6. Responsive rules
 
-3. Layout  
-   Flexbox and CSS Grid are used to control alignment and structure.
+### Design Approach
 
-4. Components
-   Styles for each section in page order: navbar, theme toggle, hero, buttons, skills, projects, and contact. Each component's animations and interactive states are defined alongside it.
+The visual system is based on:
 
-5. Responsive Rules
-   Media queries adjust layout for screens under 900px and 600px.
+- CSS variables for theme consistency
+- reusable card-like surfaces for related content
+- soft borders and shadows for depth
+- a consistent accent color for actions and emphasis
 
----
+Assignment 3 UI elements such as the visitor panel, timer panel, and extra project controls were styled to match the existing card and form language already used elsewhere in the portfolio.
 
-## 5. UI Design Principles
+## 5. JavaScript Architecture
 
-### 60 / 30 / 10 Rule
+The JavaScript file is organized into feature blocks rather than classes or modules, which fits the size and complexity of the project.
 
-The color system follows the 60/30/10 design principle:
+Main feature areas:
 
-- 60% → Background (main page color)
-- 30% → Surface elements (cards, sections)
-- 10% → Accent color (buttons, highlights)
+- scroll fade-in
+- navbar active-section tracking
+- guide toggle state
+- theme persistence
+- project filtering and sorting
+- GitHub API loading
+- visitor personalization
+- time-on-site counter
+- contact form validation
 
-This improves visual balance and consistency.
+This structure keeps logic readable and appropriate for a small front-end project without introducing unnecessary tooling.
 
-### Transparency & Depth
+## 6. API Integration
 
-The navigation bar uses slight transparency and backdrop blur to create depth and modern UI appearance while keeping content readable.
+Assignment 3 required external API integration. The portfolio uses the GitHub REST API.
 
----
+### Purpose
 
-## 6. JavaScript Logic
+The GitHub section keeps the portfolio more dynamic by showing recent public repositories instead of relying only on manually written static content.
 
-The JavaScript file is organized into three independent blocks:
+### Implementation
 
-**Theme Toggle (Assignment 1)**
-- Detects previously saved theme using `localStorage`
-- Applies saved theme on page load
-- Toggles `dark` class on the `<body>` element
-- Saves updated theme preference
+The JavaScript code:
 
-**Project Filter (Assignment 2)**
-- Reads `data-category` attribute from each project card
-- On filter button click, removes the `hidden` class from matching cards and adds it to non-matching ones
-- Updates the active button style
-- Shows an empty-state message if no cards match the selected category
+- builds the GitHub API URL using the portfolio owner's username
+- fetches repository data asynchronously with `fetch`
+- checks `response.ok` before using the result
+- filters out forked repositories
+- limits the rendered results to a smaller set for readability
+- renders repository cards dynamically into the page
 
-**Contact Form Validation (Assignment 2)**
-- Intercepts form submission with `e.preventDefault()`
-- Validates name (not empty), email (regex pattern), and message (not empty)
-- Adds `input-error` class to failing fields to highlight them in red
-- Displays a success banner on valid submission and resets the form
-- Success banner auto-hides after 5 seconds using `setTimeout`
+### Error Handling
 
-Event handling throughout uses `addEventListener`, and the logic is kept straightforward for clarity.
+The UI includes:
 
----
+- loading state text while the request is in progress
+- success state after data is rendered
+- user-friendly fallback message if the request fails
 
-## 7. Responsive Design
+This satisfies the assignment requirement to handle API failure gracefully.
 
-Responsiveness was implemented using CSS Grid and Flexbox.
+## 7. Complex Logic
 
-Adjustments include:
-- Project cards switch from two-column layout to single column on smaller screens.
-- Hero text size reduces on mobile devices.
-- Layout spacing adapts for smaller viewports.
+Assignment 3 also required more advanced application logic.
 
-Testing was performed using:
-- Chrome DevTools device toolbar
-- Manual resizing
-- Live Server in VS Code
+The projects section now uses multiple conditions and steps:
 
----
+- category filtering with buttons
+- experience-level filtering with a dropdown
+- sorting by featured order, alphabetical order, and date
+- summary text describing the current result state
+- empty-state message when no projects match
 
-## 8. Performance Considerations
+This is more advanced than the original one-step filter because the visible output depends on combined user choices and ordered rules.
 
-- No external frameworks were used to keep the website lightweight.
-- Minimal JavaScript ensures fast load time.
-- CSS variables reduce redundancy and improve maintainability.
+## 8. State Management
 
----
+State is managed using `localStorage` and controlled UI updates.
 
-## 9. Known Limitations
+Saved values include:
 
-- The contact form does not include backend processing (client-side validation only).
-- The portfolio content is manually updated; no CMS is used.
+- selected theme
+- site guide open/closed state
+- active project category
+- active project sort option
+- active project experience level
+- visitor name
 
----
+On page load, JavaScript reads these stored values and restores the interface so the site feels consistent across sessions.
 
-## 10. Future Improvements
+## 9. Contact Form Logic
 
-- Deploy using GitHub Pages.
-- Add backend functionality for the contact form.
-- Expand project cards with live demo and source links.
+The contact form was strengthened for Assignment 3.
+
+Validation rules:
+
+- name must contain at least 2 characters
+- email must match a valid email pattern
+- message must be between 20 and 300 characters
+
+Additional behavior:
+
+- live helper text for each field
+- live character counter for the message
+- disabled submit button until the form is valid
+- success and error banners
+- red highlight for invalid fields on submit
+
+This makes the form behavior more clearly rule-based and user-guided.
+
+## 10. Timing Feature
+
+The hero section includes a live session activity timer.
+
+It:
+
+- starts counting when the page loads
+- updates every second
+- displays the time in a readable format
+- clears the interval on page unload
+
+This was added to satisfy the assignment requirement for a timer or counter feature.
+
+## 11. Performance and Compatibility
+
+The project uses several lightweight performance improvements:
+
+- no external JavaScript frameworks
+- small overall file structure
+- lazy loading for project thumbnails
+- asynchronous image decoding hints
+- reusable CSS variables and shared component styles
+- minimal DOM work for a static site
+
+Compatibility considerations:
+
+- responsive layout built with Flexbox and CSS Grid
+- tested through browser resizing and responsive view simulation
+- semantic HTML used for better browser support and maintainability
+
+One remaining limitation is that image optimization is manual; large assets should be compressed before final deployment if needed.
+
+## 12. Known Limitations
+
+- the contact form is client-side only and does not send real messages
+- GitHub content depends on network access and GitHub API availability
+- project data is still partly hand-authored in the HTML rather than being fully data-driven
+
+## 13. Future Improvements
+
+- deploy the site publicly
+- add backend form handling
+- connect project cards to individual repositories or live demos
+- compress or replace larger image assets
+- improve accessibility further with expanded keyboard and ARIA review

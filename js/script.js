@@ -243,10 +243,16 @@ const emailField = document.getElementById("contact-email");
 const messageField = document.getElementById("contact-message");
 const successMsg = document.getElementById("form-success");
 const errorMsg = document.getElementById("form-error");
+const submitButton = document.getElementById("submit-button");
+const nameHint = document.getElementById("name-hint");
+const emailHint = document.getElementById("email-hint");
+const messageHint = document.getElementById("message-hint");
+const messageCount = document.getElementById("message-count");
 const visitorNameInput = document.getElementById("visitor-name");
 const saveVisitorButton = document.getElementById("save-visitor");
 const clearVisitorButton = document.getElementById("clear-visitor");
 const visitorGreeting = document.getElementById("visitor-greeting");
+const timeOnSite = document.getElementById("time-on-site");
 
 function renderVisitorGreeting(name) {
   if (!visitorGreeting) {
@@ -280,6 +286,117 @@ if (visitorNameInput && saveVisitorButton && clearVisitorButton) {
   });
 }
 
+function formatTimeOnSite(totalSeconds) {
+  if (totalSeconds < 60) {
+    return `${totalSeconds} second${totalSeconds === 1 ? "" : "s"}`;
+  }
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  if (minutes < 60) {
+    return `${minutes} minute${minutes === 1 ? "" : "s"} and ${seconds} second${seconds === 1 ? "" : "s"}`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+
+  return `${hours} hour${hours === 1 ? "" : "s"}, ${remainingMinutes} minute${remainingMinutes === 1 ? "" : "s"}, and ${seconds} second${seconds === 1 ? "" : "s"}`;
+}
+
+if (timeOnSite) {
+  let elapsedSeconds = 0;
+
+  timeOnSite.textContent = "You have been exploring this portfolio for 0 seconds.";
+
+  const timerId = window.setInterval(() => {
+    elapsedSeconds += 1;
+    timeOnSite.textContent = `You have been exploring this portfolio for ${formatTimeOnSite(elapsedSeconds)}.`;
+  }, 1000);
+
+  window.addEventListener("beforeunload", () => {
+    window.clearInterval(timerId);
+  });
+}
+
+function updateFormStatus() {
+  if (!contactForm || !nameField || !emailField || !messageField || !submitButton) {
+    return false;
+  }
+
+  const trimmedName = nameField.value.trim();
+  const trimmedEmail = emailField.value.trim();
+  const trimmedMessage = messageField.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const isNameValid = trimmedName.length >= 2;
+  const isEmailValid = emailRegex.test(trimmedEmail);
+  const isMessageLengthValid = trimmedMessage.length >= 20;
+  const isMessageWithinLimit = trimmedMessage.length <= 300;
+  const isValid = isNameValid && isEmailValid && isMessageLengthValid && isMessageWithinLimit;
+  const hasNameInput = trimmedName.length > 0;
+  const hasEmailInput = trimmedEmail.length > 0;
+  const hasMessageInput = trimmedMessage.length > 0;
+
+  if (nameHint) {
+    if (!hasNameInput) {
+      nameHint.textContent = "Please enter your name so I know who is reaching out.";
+      nameHint.classList.remove("is-error");
+    } else if (isNameValid) {
+      nameHint.textContent = "Name looks good.";
+      nameHint.classList.remove("is-error");
+    } else {
+      nameHint.textContent = "Please enter at least 2 characters for your name.";
+      nameHint.classList.add("is-error");
+    }
+  }
+
+  if (emailHint) {
+    if (!hasEmailInput) {
+      emailHint.textContent = "Please enter your email address so I can reply.";
+      emailHint.classList.remove("is-error");
+    } else if (isEmailValid) {
+      emailHint.textContent = "Email format looks good.";
+      emailHint.classList.remove("is-error");
+    } else {
+      emailHint.textContent = "Please enter a valid email address.";
+      emailHint.classList.add("is-error");
+    }
+  }
+
+  if (messageCount) {
+    messageCount.textContent = `${trimmedMessage.length} / 300`;
+    messageCount.classList.toggle("is-error", !isMessageWithinLimit);
+  }
+
+  if (messageHint) {
+    if (!hasMessageInput) {
+      messageHint.textContent = "Please enter a short message with enough detail to help me understand.";
+      messageHint.classList.remove("is-error");
+    } else if (!isMessageWithinLimit) {
+      messageHint.textContent = "Please keep your message at 300 characters or fewer.";
+      messageHint.classList.add("is-error");
+    } else if (!isMessageLengthValid) {
+      messageHint.textContent = "Please enter at least 20 characters so your message is clear.";
+      messageHint.classList.add("is-error");
+    } else {
+      messageHint.textContent = "Message length looks good.";
+      messageHint.classList.remove("is-error");
+    }
+  }
+
+  submitButton.disabled = !isValid;
+  return isValid;
+}
+
+[nameField, emailField, messageField].forEach((field) => {
+  if (field) {
+    field.addEventListener("input", updateFormStatus);
+  }
+});
+
+updateFormStatus();
+
 contactForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -288,19 +405,22 @@ contactForm.addEventListener("submit", (e) => {
   emailField.classList.remove("input-error");
   messageField.classList.remove("input-error");
 
+  const trimmedName = nameField.value.trim();
+  const trimmedEmail = emailField.value.trim();
+  const trimmedMessage = messageField.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let isValid = true;
 
   // Validate each field
-  if (nameField.value.trim() === "") {
+  if (trimmedName.length < 2) {
     nameField.classList.add("input-error");
     isValid = false;
   }
-  if (!emailRegex.test(emailField.value.trim())) {
+  if (!emailRegex.test(trimmedEmail)) {
     emailField.classList.add("input-error");
     isValid = false;
   }
-  if (messageField.value.trim() === "") {
+  if (trimmedMessage.length < 20 || trimmedMessage.length > 300) {
     messageField.classList.add("input-error");
     isValid = false;
   }
@@ -316,6 +436,7 @@ contactForm.addEventListener("submit", (e) => {
   errorMsg.style.display = "none";
   successMsg.style.display = "block";
   contactForm.reset();
+  updateFormStatus();
 
   // Auto-hide success message after 5 seconds
   setTimeout(() => {
