@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdulmajeed Alothaymin | Portfolio</title>
+  <meta name="description" content="Portfolio of Abdulmajeed Alothaymin — Software Engineering student at KFUPM specializing in system design, databases, and low-level systems." />
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <!-- LEFT: Logo -->
+      <div class="logo">
+        Abdulmajeed Alothaymin
+      </div>
+      <!-- RIGHT: Links + Toggle -->
+      <div class="nav-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle__track">
+            <span class="theme-toggle__thumb">
+              <span class="theme-icon sun" aria-hidden="true">
+                <!-- SUN SVG -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/>
+                </svg>
+              </span>
+              <span class="theme-icon moon" aria-hidden="true">
+                <!-- MOON SVG -->
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                    d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"/>
+                </svg>
+              </span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- ================= HERO ================= -->
+  <section id="hero" class="hero">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <p class="hero-role">Software Engineering Student · KFUPM</p>
+        <h1>Abdulmajeed Alothaymin</h1>
+        <p>
+          Building structured systems, writing clean code, and learning something new every semester.
+        </p>
+        <!-- CTA Buttons -->
+        <div class="hero-cta">
+          <a href="#projects" class="btn">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <!-- Site Guide -->
+        <div class="site-guide">
+          <button class="site-guide__toggle" id="guide-toggle" aria-expanded="false" type="button">
+            How to navigate this site <span class="guide-arrow" aria-hidden="true">▾</span>
+          </button>
+          <ol class="site-guide__steps" id="guide-steps" hidden>
+            <li><strong>Navbar:</strong> Use the links at the top — <em>About</em>, <em>Skills</em>, <em>Projects</em>, <em>Contact</em> — to jump directly to any section.</li>
+            <li><strong>Theme:</strong> Toggle the sun/moon switch in the top-right corner to switch between light and dark mode. Your preference is saved automatically.</li>
+            <li><strong>Projects:</strong> Click one of the category buttons (Design &amp; Systems, Database, Systems) to filter the project cards. Click <em>All</em> to reset. Then click <em>View on GitHub →</em> on any card to open its repository.</li>
+            <li><strong>Contact form:</strong> Fill in your name, email address, and message, then click <em>Send Message</em>. All three fields are required — any missing or invalid field will be highlighted in red. A confirmation message appears on success.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="section-block section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow">Who I Am</span>
+        <h2>About Me</h2>
+      </div>
+      <div class="about-layout">
+        <div class="about-text">
+          <p>
+            Software Engineering student focused on building structured,
+            scalable systems using disciplined engineering practices.
+            Experienced in system design, requirements engineering, database modeling,
+            and low-level systems concepts through hands-on academic projects.
+            Skilled in applying SDLC principles, UML modeling, relational schema design,
+            and structured documentation to deliver maintainable and well-architected solutions.
+            Strong foundation in problem-solving, analytical thinking, and technical communication.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">3+</span>
+            <span class="stat-label">Years of Study</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">11</span>
+            <span class="stat-label">Tech Skills</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">KFUPM</span>
+            <span class="stat-label">University</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= SKILLS ================= -->
+  <section id="skills" class="section-block">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow">What I Know</span>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="skills-groups">
+        <div class="skills-group">
+          <h3 class="skills-group-title">Proficient</h3>
+          <div class="skill-pills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">C</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">HTML</span>
+            <span class="skill-pill">CSS</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">GitHub</span>
+            <span class="skill-pill">UML</span>
+            <span class="skill-pill">Figma</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h3 class="skills-group-title">Currently Learning</h3>
+          <div class="skill-pills">
+            <span class="skill-pill skill-pill--learning">React</span>
+            <span class="skill-pill skill-pill--learning">Node.js</span>
+            <span class="skill-pill skill-pill--learning">Express</span>
+            <span class="skill-pill skill-pill--learning">MongoDB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects" class="section-block section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow">My Work</span>
+        <h2>Projects</h2>
+      </div>
+
+      <ol class="section-steps">
+        <li>Click a category button below to filter projects by type.</li>
+        <li>Browse the cards — each one lists the tools and deliverables involved.</li>
+        <li>Click <strong>View on GitHub →</strong> on any card to open its repository.</li>
+      </ol>
+      <!-- Filter Buttons -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="design">Design & Systems</button>
+        <button class="filter-btn" data-filter="database">Database</button>
+        <button class="filter-btn" data-filter="systems">Systems</button>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card" data-category="design">
+          <img
+            class="project-thumb"
+            alt="Project placeholder image"
+            src="assets/images/UML.png"
+          />
+          <h3>K-Park System</h3>
+          <p>
+            Campus parking management system documentation built using SDLC practices and structured requirements.
+          </p>
+          <ul class="project-bullets">
+            <li>Requirements &amp; design documentation</li>
+            <li>UML modeling (use case, sequence)</li>
+            <li>Structured engineering deliverables</li>
+          </ul>
+          <div class="card-footer">
+            <span class="tech-stack">UML • SDLC • Documentation</span>
+            <a href="https://github.com/abdulmajeed-alothaymin24" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub →</a>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="project-card" data-category="design">
+          <img
+            class="project-thumb"
+            alt="Project placeholder image"
+            src="assets/images/SRS.png"
+          />
+          <h3>KFUPM Student Impact Hub</h3>
+          <p>
+            Requirements engineering project for a multi-role student platform with complete SRS deliverables.
+          </p>
+          <ul class="project-bullets">
+            <li>Stakeholder analysis &amp; elicitation</li>
+            <li>Functional &amp; non-functional requirements</li>
+            <li>Traceability + change control analysis</li>
+          </ul>
+          <div class="card-footer">
+            <span class="tech-stack">SRS • Use Cases • RE Process</span>
+            <a href="https://github.com/abdulmajeed-alothaymin24" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub →</a>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="project-card" data-category="database">
+          <img
+            class="project-thumb"
+            alt="Project placeholder image"
+            src="assets/images/SQL.png"
+          />
+          <h3>Soccer@KFUPM</h3>
+          <p>
+            Database-driven system for managing soccer tournaments, from EER design to SQL implementation.
+          </p>
+          <ul class="project-bullets">
+            <li>EER model -> relational schema mapping</li>
+            <li>Normalization + integrity constraints</li>
+            <li>Flask integration for basic operations</li>
+          </ul>
+          <div class="card-footer">
+            <span class="tech-stack">SQL • EER • Flask</span>
+            <a href="https://github.com/abdulmajeed-alothaymin24" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub →</a>
+          </div>
+        </div>
+        <!-- Project 4 -->
+        <div class="project-card" data-category="systems">
+          <img
+            class="project-thumb"
+            alt="Project placeholder image"
+            src="assets/images/OS.jfif"
+          />
+          <h3>Operating Systems Project (TAMU)</h3>
+          <p>
+            Building core components of a simple operating system starting from bootloader-invoked kernel code.
+          </p>
+          <ul class="project-bullets">
+            <li>Memory management foundations</li>
+            <li>Kernel-level threading concepts</li>
+            <li>Basic file system components</li>
+          </ul>
+          <div class="card-footer">
+            <span class="tech-stack">C • Kernel • OS Concepts</span>
+            <a href="https://github.com/abdulmajeed-alothaymin24" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Empty state message -->
+        <p class="empty-state" id="no-projects">No projects in this category yet.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="section-block">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow">Let's Talk</span>
+        <h2>Contact</h2>
+      </div>
+      <p class="section-subtitle">Open to opportunities and project discussions</p>
+      <ol class="section-steps">
+        <li>Reach out directly via email, GitHub, or LinkedIn using the links below.</li>
+        <li>Or use the form: fill in your <strong>name</strong>, <strong>email</strong>, and <strong>message</strong>.</li>
+        <li>Click <strong>Send Message</strong>. Missing or invalid fields will be highlighted in red.</li>
+        <li>A confirmation appears on success — note this is a demo form; for a guaranteed reply use email directly.</li>
+      </ol>
+      <div class="contact-links">
+        <a href="mailto:abdulmajeed-alothaymin@outlook.com" class="contact-link">
+          <!-- Email icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              points="22,6 12,13 2,6"/>
+          </svg>
+          abdulmajeed-alothaymin@outlook.com
+        </a>
+        <a href="https://github.com/abdulmajeed-alothaymin24" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <!-- GitHub icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/abdulmajeed-alothaymin-740a1828a/" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <!-- LinkedIn icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              x="2" y="9" width="4" height="12"/>
+            <circle stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+              cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <form class="contact-form" id="contact-form">
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" name="name" placeholder="Your Name" />
+        <label for="contact-email">Email</label>
+        <input type="email" id="contact-email" name="email" placeholder="your@email.com" />
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" placeholder="Write your message here..." rows="5"></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <!-- Feedback messages -->
+      <p class="form-feedback form-success" id="form-success">Thanks! This form is for demo purposes — reach me directly at abdulmajeed-alothaymin@outlook.com.</p>
+      <p class="form-feedback form-error" id="form-error">Please fill in all fields correctly before sending.</p>
+    </div>
+  </section>
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Abdulmajeed Alothaymin. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
