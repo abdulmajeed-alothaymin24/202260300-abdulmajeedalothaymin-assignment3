@@ -390,6 +390,55 @@ body.dark .theme-icon.moon { opacity:0; }
   margin-bottom:28px;
 }
 
+.visitor-panel{
+  max-width:620px;
+  margin:0 auto 28px;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+}
+
+.visitor-panel__label{
+  display:block;
+  text-align:left;
+  font-size:14px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:10px;
+}
+
+.visitor-panel__controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.visitor-panel__input{
+  flex:1 1 240px;
+  min-width:220px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  font-family:inherit;
+}
+
+.visitor-panel__input:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+
+.visitor-panel__greeting{
+  margin:14px 0 0;
+  font-size:14px;
+  color:var(--muted);
+  text-align:left;
+  max-width:none;
+}
+
 /* BUTTONS */
 .btn{
   padding:12px 20px;
@@ -1031,6 +1080,15 @@ body.dark .repo-badge{
   .hero-cta{
     flex-direction:column;
     align-items:center;
+  }
+
+  .visitor-panel__controls{
+    flex-direction:column;
+  }
+
+  .visitor-panel__input{
+    width:100%;
+    min-width:0;
   }
 
   .project-control{

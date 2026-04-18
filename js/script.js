@@ -50,12 +50,26 @@ navSections.forEach((section) => navObserver.observe(section));
 
 const guideToggle = document.getElementById("guide-toggle");
 const guideSteps  = document.getElementById("guide-steps");
+const storageKeys = {
+  theme: "theme",
+  guideOpen: "guideOpen",
+  projectFilter: "projectFilter",
+  projectSort: "projectSort",
+  projectLevel: "projectLevel",
+  visitorName: "visitorName"
+};
 
 if (guideToggle && guideSteps) {
+  const savedGuideOpen = localStorage.getItem(storageKeys.guideOpen) === "true";
+
+  guideToggle.setAttribute("aria-expanded", String(savedGuideOpen));
+  guideSteps.hidden = !savedGuideOpen;
+
   guideToggle.addEventListener("click", () => {
     const isOpen = guideToggle.getAttribute("aria-expanded") === "true";
     guideToggle.setAttribute("aria-expanded", String(!isOpen));
     guideSteps.hidden = isOpen;
+    localStorage.setItem(storageKeys.guideOpen, String(!isOpen));
   });
 }
 
@@ -67,7 +81,7 @@ if (guideToggle && guideSteps) {
 const themeToggleBtn = document.getElementById("theme-toggle");
 
 // Check if the user previously saved a theme preference
-const savedTheme = localStorage.getItem("theme");
+const savedTheme = localStorage.getItem(storageKeys.theme);
 
 // If dark mode was saved, apply it on page load
 if (savedTheme === "dark") {
@@ -82,9 +96,9 @@ themeToggleBtn.addEventListener("click", () => {
 
   // Save the selected theme to localStorage
   if (document.body.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark");
+    localStorage.setItem(storageKeys.theme, "dark");
   } else {
-    localStorage.setItem("theme", "light");
+    localStorage.setItem(storageKeys.theme, "light");
   }
 });
 
@@ -99,7 +113,19 @@ const projectSort = document.getElementById("project-sort");
 const projectLevel = document.getElementById("project-level");
 const projectsGrid = document.querySelector(".projects-grid");
 const projectsSummary = document.getElementById("projects-summary");
-let activeProjectFilter = "all";
+let activeProjectFilter = localStorage.getItem(storageKeys.projectFilter) || "all";
+
+if (projectSort) {
+  projectSort.value = localStorage.getItem(storageKeys.projectSort) || "featured";
+}
+
+if (projectLevel) {
+  projectLevel.value = localStorage.getItem(storageKeys.projectLevel) || "all";
+}
+
+filterButtons.forEach((button) => {
+  button.classList.toggle("active", button.getAttribute("data-filter") === activeProjectFilter);
+});
 
 function sortProjectCards(cards, sortValue) {
   const sortedCards = [...cards];
@@ -155,6 +181,10 @@ function applyProjectControls() {
   const levelValue = projectLevel ? projectLevel.value : "all";
   const sortedCards = sortProjectCards(projectCards, sortValue);
   let visibleCount = 0;
+
+  localStorage.setItem(storageKeys.projectFilter, activeProjectFilter);
+  localStorage.setItem(storageKeys.projectSort, sortValue);
+  localStorage.setItem(storageKeys.projectLevel, levelValue);
 
   sortedCards.forEach((card) => {
     const matchesCategory =
@@ -213,6 +243,42 @@ const emailField = document.getElementById("contact-email");
 const messageField = document.getElementById("contact-message");
 const successMsg = document.getElementById("form-success");
 const errorMsg = document.getElementById("form-error");
+const visitorNameInput = document.getElementById("visitor-name");
+const saveVisitorButton = document.getElementById("save-visitor");
+const clearVisitorButton = document.getElementById("clear-visitor");
+const visitorGreeting = document.getElementById("visitor-greeting");
+
+function renderVisitorGreeting(name) {
+  if (!visitorGreeting) {
+    return;
+  }
+
+  if (name) {
+    visitorGreeting.textContent = `Welcome back, ${name}. Your project preferences are being remembered on this device.`;
+  } else {
+    visitorGreeting.textContent = "Welcome. Your preferences can be saved on this device.";
+  }
+}
+
+if (visitorNameInput && saveVisitorButton && clearVisitorButton) {
+  const savedVisitorName = localStorage.getItem(storageKeys.visitorName) || "";
+
+  visitorNameInput.value = savedVisitorName;
+  renderVisitorGreeting(savedVisitorName);
+
+  saveVisitorButton.addEventListener("click", () => {
+    const trimmedName = visitorNameInput.value.trim();
+
+    localStorage.setItem(storageKeys.visitorName, trimmedName);
+    renderVisitorGreeting(trimmedName);
+  });
+
+  clearVisitorButton.addEventListener("click", () => {
+    visitorNameInput.value = "";
+    localStorage.removeItem(storageKeys.visitorName);
+    renderVisitorGreeting("");
+  });
+}
 
 contactForm.addEventListener("submit", (e) => {
   e.preventDefault();

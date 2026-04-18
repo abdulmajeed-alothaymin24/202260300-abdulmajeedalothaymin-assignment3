@@ -67,6 +67,22 @@
           <a href="#projects" class="btn">View Projects</a>
           <a href="#contact" class="btn btn-outline">Get in Touch</a>
         </div>
+        <div class="visitor-panel">
+          <label class="visitor-panel__label" for="visitor-name">Personalize your visit</label>
+          <div class="visitor-panel__controls">
+            <input
+              type="text"
+              id="visitor-name"
+              class="visitor-panel__input"
+              placeholder="Enter your name"
+            />
+            <button class="btn" id="save-visitor" type="button">Save</button>
+            <button class="btn btn-outline" id="clear-visitor" type="button">Clear</button>
+          </div>
+          <p class="visitor-panel__greeting" id="visitor-greeting" aria-live="polite">
+            Welcome. Your preferences can be saved on this device.
+          </p>
+        </div>
         <!-- Site Guide -->
         <div class="site-guide">
           <button class="site-guide__toggle" id="guide-toggle" aria-expanded="false" type="button">
